@@ -1,18 +1,27 @@
-import { Button, HStack, Input, Select, Stack, Text } from '@chakra-ui/react';
+import { Button, HStack, Input, Stack, Text } from '@chakra-ui/react';
+import axios from 'axios';
 import React, { useState } from 'react';
 import { FaRegAddressCard } from 'react-icons/fa';
+import Dnd from './Dnd';
 
 const FormDetails = () => {
   const [details, setDetails] = useState({
-    title: '',
-    description: '',
-    url: '',
-    fileSize: 'large',
+    name: '',
+    email: '',
+    mobile: '',
+    designation: '',
   });
 
-  const handleSubmit = event => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(details);
+    const createCard = await axios.post("/createcard", details, {
+      headers: {
+        "ContentType" : "Application/json",
+
+      }
+    });
+    console.log(createCard.data);
+
   };
 
   const handleChange = e => {
@@ -20,52 +29,74 @@ const FormDetails = () => {
   };
 
   return (
-    <Stack bg={'#e6f7f8'} w={'80%'} p={6} gap={5} my={4} border={'5px dashed white'}>
+    <Stack
+      bg={'#e6f7f8'}
+      w={'80%'}
+      p={6}
+      gap={5}
+      my={4}
+      border={'5px dashed white'}
+      justifyContent = {'center'}
+    >
       <form onSubmit={handleSubmit}>
+        <Stack w={'100%'} justifyContent={'center'} alignItems={'center'}>
+          <Dnd/>
+        </Stack>
         <Input
-         focusBorderColor='none'
+          focusBorderColor="none"
           my={1}
           p={5}
           py={7}
           fontSize={'1.2rem'}
           bg={'white'}
           type="text"
-          name="title"
-          value={details.title}
+          name="name"
+          value={details.name}
           onChange={handleChange}
-          placeholder={'Title'}
+          placeholder={'Name'}
+          required
         />
         <Input
-        focusBorderColor='none'
+          focusBorderColor="none"
+          my={1}
+          p={5}
+          py={7}
+          fontSize={'1.2rem'}
+          bg={'white'}
+          type="email"
+          name="email"
+          value={details.email}
+          onChange={handleChange}
+          placeholder={'Email'}
+          required
+        />
+        <Input
+          focusBorderColor="none"
+          my={1}
+          p={5}
+          py={7}
+          fontSize={'1.2rem'}
+          bg={'white'}
+          type="number"
+          name="mobile"
+          value={details.mobile}
+          onChange={handleChange}
+          placeholder={'Mobile'}
+          required
+        />
+        <Input
+          focusBorderColor="none"
           my={1}
           p={5}
           py={7}
           fontSize={'1.2rem'}
           bg={'white'}
           type="text"
-          name="description"
-          value={details.description}
+          name="designation"
+          value={details.designation}
           onChange={handleChange}
-          placeholder={'Description'}
+          placeholder={'Designation'}
         />
-        <Input
-        focusBorderColor='none'
-          my={1}
-          mb={2}
-          p={5}
-          py={7}
-          fontSize={'1.2rem'}
-          bg={'white'}
-          type="text"
-          name="url"
-          value={details.url}
-          onChange={handleChange}
-          placeholder={'Destination URL'}
-        />
-        <Select name="fileSize" bg={'white'} color={'red.500'} fontWeight={'bold'} onChange={handleChange}>
-          <option value='large'   >Card Size - Large</option>
-          <option value='small' >Card Size - Small</option>
-        </Select>
         <HStack marginTop={7} justifyContent={'flex-end'}>
           <Button bg={'green.300'} type="submit" value="Submit" p={5} py={7}>
             <Text mr={2}>Generate Card </Text>
