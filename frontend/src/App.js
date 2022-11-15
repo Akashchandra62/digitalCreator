@@ -1,9 +1,10 @@
 import { Stack, Text } from '@chakra-ui/react';
+import { useState } from 'react';
 import Footer from './Components/Footer';
 import FormDetails from './Components/FormDetails';
 
 function App() {
-
+  const [yourImage, setImage] = useState({});
   return (
     <Stack alignItems={'center'} bg={'#c8e9f7'}>
       <Stack
@@ -21,7 +22,7 @@ function App() {
         <Text color={'#2a8cb5'} fontSize={['1rem','3rem']} textAlign={'center'}>Turn Your Images into Clickable Social Cards!</Text>
       </Stack>
       
-      <FormDetails/>
+      <FormDetails yourImage={yourImage} setImage={setImage}/>
       <Footer/>
     </Stack>
   );

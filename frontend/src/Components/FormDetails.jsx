@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { FaRegAddressCard } from 'react-icons/fa';
 import Dnd from './Dnd';
 
-const FormDetails = () => {
+const FormDetails = ({yourImage, setImage}) => {
   const [details, setDetails] = useState({
     name: '',
     email: '',
@@ -14,13 +14,18 @@ const FormDetails = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const createCard = await axios.post("/createcard", details, {
+    let formData = new FormData();
+    formData.append('images', yourImage)
+    formData.append('name', details.name)
+    formData.append('email', details.email)
+    for (var key of formData.entries()) {
+      console.log(key[0] + ', ' + key[1]);
+  }
+    const createCard = await axios.post("/createcard", formData, {
       headers: {
-        "ContentType" : "Application/json",
-
+        "ContentType" : "multipart/form-data",
       }
     });
-    console.log(createCard.data);
 
   };
 
@@ -40,7 +45,7 @@ const FormDetails = () => {
     >
       <form onSubmit={handleSubmit}>
         <Stack w={'100%'} justifyContent={'center'} alignItems={'center'}>
-          <Dnd/>
+          <Dnd yourImage={yourImage} setImage={setImage}/>
         </Stack>
         <Input
           focusBorderColor="none"

@@ -31,8 +31,8 @@ const rejectStyle = {
   borderColor: '#ff1744',
 };
 
-function Dnd() {
-  const [yourImage, setImage] = useState([]);
+function Dnd({yourImage, setImage}) {
+  const [preview, setPreview] = useState([]);
   const {
     getRootProps,
     getInputProps,
@@ -42,7 +42,9 @@ function Dnd() {
   } = useDropzone({
     accept: 'image/*',
     onDrop: acceptedFiles => {
-      setImage(
+      const temp = acceptedFiles[0];
+      setImage(temp);
+      setPreview(
         acceptedFiles.map(upFile =>
           Object.assign(upFile, {
             preview: URL.createObjectURL(upFile),
@@ -78,9 +80,9 @@ function Dnd() {
         </VStack>
       </div>
       <VStack>
-        {yourImage.map(upFile => {
+        {preview.map((upFile, i) => {
           return (
-            <div>
+            <div key={i}>
               <img
                 src={upFile.preview}
                 style={{ border: '3px solid #CCC' }}
