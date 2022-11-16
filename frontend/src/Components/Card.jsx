@@ -1,4 +1,4 @@
-import { HStack, Image, Input, Stack, Text, VStack } from '@chakra-ui/react';
+import { HStack, Image, Stack, Text, VStack } from '@chakra-ui/react';
 import axios from 'axios';
 import React from 'react';
 import { useState } from 'react';
@@ -6,10 +6,11 @@ import { useEffect } from 'react';
 import { AiOutlineMobile, AiOutlineMail } from 'react-icons/ai';
 import { BiUserCircle } from 'react-icons/bi';
 import { ImWhatsapp } from 'react-icons/im';
+import { useParams } from 'react-router-dom';
 
-const id = '6374f9c1dec0df5f1dc3e9ac';
 const Card = () => {
   const [user, setUser] = useState({});
+  const {id} = useParams();
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -43,7 +44,7 @@ const Card = () => {
           <Image
             boxSize={'100%'}
             src={`./images/${user.imagePath}`}
-            alt="Dan Abramov"
+            alt="profile"
             borderTopRadius={'1rem'}
           />
           <VStack

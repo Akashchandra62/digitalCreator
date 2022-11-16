@@ -6,8 +6,8 @@ import Dnd from './Dnd';
 
 const FormDetails = ({ yourImage, setImage }) => {
   const [created, setCreated] = useState(false);
-  const [link, setLink] = useState(' Akash chandra');
   const [visible, setVisible] = useState(false);
+  const [link, setLink] = useState(' Akash chandra');
   const [details, setDetails] = useState({
     name: '',
     email: '',
