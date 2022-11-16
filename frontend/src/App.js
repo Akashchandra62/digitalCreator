@@ -1,18 +1,20 @@
 import { Stack, Text } from '@chakra-ui/react';
 import { useState } from 'react';
+import Card from './Components/Card';
 import Footer from './Components/Footer';
 import FormDetails from './Components/FormDetails';
 
 function App() {
   const [yourImage, setImage] = useState({});
+  
   return (
+    // <Card/>
+
     <Stack alignItems={'center'} bg={'#c8e9f7'}>
       <Stack
-        // bg={'#edf6fa'}
         w={['100%', '80%']}
         m={'auto'}
         color={'black'}
-        // boxShadow={'rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px'}
         py={4}
         fontSize={['1.5rem','2rem']}
       >

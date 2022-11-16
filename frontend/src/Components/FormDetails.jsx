@@ -1,10 +1,13 @@
-import { Button, HStack, Input, Stack, Text } from '@chakra-ui/react';
+import { Box, Button, HStack, Input, Stack, Text } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useState } from 'react';
 import { FaRegAddressCard } from 'react-icons/fa';
 import Dnd from './Dnd';
 
-const FormDetails = ({yourImage, setImage}) => {
+const FormDetails = ({ yourImage, setImage }) => {
+  const [created, setCreated] = useState(false);
+  const [link, setLink] = useState(' Akash chandra');
+  const [visible, setVisible] = useState(false);
   const [details, setDetails] = useState({
     name: '',
     email: '',
@@ -12,21 +15,25 @@ const FormDetails = ({yourImage, setImage}) => {
     designation: '',
   });
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async event => {
     event.preventDefault();
     let formData = new FormData();
-    formData.append('images', yourImage)
-    formData.append('name', details.name)
-    formData.append('email', details.email)
-    for (var key of formData.entries()) {
-      console.log(key[0] + ', ' + key[1]);
-  }
-    const createCard = await axios.post("/createcard", formData, {
-      headers: {
-        "ContentType" : "multipart/form-data",
-      }
-    });
+    formData.append('images', yourImage);
+    formData.append('name', details.name);
+    formData.append('email', details.email);
+    formData.append('mobile', details.mobile);
+    formData.append('designation', details.designation);
 
+    const createCard = await axios.post('/createcard', formData, {
+      headers: {
+        ContentType: 'multipart/form-data',
+      },
+    });
+    const userId = createCard.data.user._id;
+    setCreated(true);
+    setVisible(true)
+    setLink(``)
+    console.log(userId);
   };
 
   const handleChange = e => {
@@ -41,11 +48,16 @@ const FormDetails = ({yourImage, setImage}) => {
       gap={5}
       my={4}
       border={'5px dashed white'}
-      justifyContent = {'center'}
+      justifyContent={'center'}
     >
+      <HStack justifyContent={'center'}>
+          <Box>
+            <Text>{link}</Text>
+          </Box>
+        </HStack>
       <form onSubmit={handleSubmit}>
         <Stack w={'100%'} justifyContent={'center'} alignItems={'center'}>
-          <Dnd yourImage={yourImage} setImage={setImage}/>
+          <Dnd yourImage={yourImage} setImage={setImage} />
         </Stack>
         <Input
           focusBorderColor="none"
