@@ -23,7 +23,7 @@ function App() {
               py={4}
               fontSize={['1.5rem', '2rem']}
             >
-              <Text fontWeight={'bolder'}>DIGICARD.IO</Text>
+              <Text fontWeight={'bolder'} w={'80%'} m={'auto'}>DIGICARD.IO</Text>
             </Stack>
             <Stack
               justifyContent={'center'}

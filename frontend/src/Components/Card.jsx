@@ -53,7 +53,7 @@ const Card = () => {
             alignItems={'flex-start'}
             pl={'15px'}
           >
-            <HStack>
+            <HStack flexWrap={'wrap'}>
               <BiUserCircle fontSize={'1.7rem'} />
               <Text fontSize={'1.7rem'} fontWeight={'bold'}>
                 {user.name}

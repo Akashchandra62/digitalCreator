@@ -2,12 +2,15 @@ import { Box, Button, HStack, Input, Stack, Text } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useState } from 'react';
 import { FaRegAddressCard } from 'react-icons/fa';
+import { AiFillCopy } from 'react-icons/ai';
 import Dnd from './Dnd';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const FormDetails = ({ yourImage, setImage }) => {
-  const [created, setCreated] = useState(false);
+  const [copied, setCopied] = useState('Copy');
+
   const [visible, setVisible] = useState(false);
-  const [link, setLink] = useState(' Akash chandra');
+  const [link, setLink] = useState('');
   const [details, setDetails] = useState({
     name: '',
     email: '',
@@ -30,10 +33,9 @@ const FormDetails = ({ yourImage, setImage }) => {
       },
     });
     const userId = createCard.data.user._id;
-    setCreated(true);
-    setVisible(true)
-    setLink(``)
-    console.log(userId);
+    setVisible(true);
+
+    setLink(process.env.REACT_APP_URL + `/${userId}`);
   };
 
   const handleChange = e => {
@@ -50,11 +52,31 @@ const FormDetails = ({ yourImage, setImage }) => {
       border={'5px dashed white'}
       justifyContent={'center'}
     >
-      <HStack justifyContent={'center'}>
-          <Box>
+      {visible && (
+        <HStack
+          w={'80%'}
+          p={'3'}
+          margin={'auto'}
+          bg={'white'}
+          borderRadius={'10'}
+          justifyContent={'center'}
+          flexWrap={'wrap'}
+          boxShadow={
+            ' rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;'
+          }
+        >
+          <Box w={'80%'}>
             <Text>{link}</Text>
           </Box>
+          <CopyToClipboard text={link} onCopy={() => setCopied('Copied')}>
+            <Button bg={'green.200'}>
+              <HStack>
+                <Text fontWeight={'bold'}>{copied}</Text> <AiFillCopy />
+              </HStack>
+            </Button>
+          </CopyToClipboard>
         </HStack>
+      )}
       <form onSubmit={handleSubmit}>
         <Stack w={'100%'} justifyContent={'center'} alignItems={'center'}>
           <Dnd yourImage={yourImage} setImage={setImage} />

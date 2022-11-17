@@ -41,6 +41,7 @@ function Dnd({yourImage, setImage}) {
     isDragReject,
   } = useDropzone({
     accept: 'image/*',
+    multiple:false,
     onDrop: acceptedFiles => {
       const temp = acceptedFiles[0];
       setImage(temp);
@@ -63,12 +64,6 @@ function Dnd({yourImage, setImage}) {
     }),
     [isFocused, isDragAccept, isDragReject]
   );
-  // const files = acceptedFiles.map(file => (
-  //   <li key={file.path}>
-  //     console.log();
-  //     {file.path} - {file.size} bytes
-  //   </li>
-  // ));
 
   return (
     <Stack className="container" w={'80%'} gap={2}>
@@ -76,7 +71,7 @@ function Dnd({yourImage, setImage}) {
         <input {...getInputProps()} />
         <VStack gap={2}>
           <AiOutlineCloudUpload fontSize={'5rem'} color={'blue'} />
-          <Text>Drag 'n' drop some files here, or click to select files</Text>
+          <Text>Drag 'n' drop Your Profile here...</Text>
         </VStack>
       </div>
       <VStack>
