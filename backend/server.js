@@ -57,12 +57,11 @@ var upload = multer({
 });
 
 app.post("/createcard", upload.single("images"), async (req, res) => {
-  const { name, email, mobile, designation } = req.body;
+  const { name, url, description } = req.body;
   const user = new User({
     name,
-    email,
-    mobile,
-    designation,
+    description,
+    url,
     imagePath: `${req.fileName}`,
   });
   await user.save();

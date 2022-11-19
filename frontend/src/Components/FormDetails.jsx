@@ -13,9 +13,8 @@ const FormDetails = ({ yourImage, setImage }) => {
   const [link, setLink] = useState('');
   const [details, setDetails] = useState({
     name: '',
-    email: '',
-    mobile: '',
-    designation: '',
+    description:'',
+    url: '',
   });
 
   const handleSubmit = async event => {
@@ -23,9 +22,8 @@ const FormDetails = ({ yourImage, setImage }) => {
     let formData = new FormData();
     formData.append('images', yourImage);
     formData.append('name', details.name);
-    formData.append('email', details.email);
-    formData.append('mobile', details.mobile);
-    formData.append('designation', details.designation);
+    formData.append('description', details.description);
+    formData.append('url', details.url);
 
     const createCard = await axios.post('/createcard', formData, {
       headers: {
@@ -102,27 +100,14 @@ const FormDetails = ({ yourImage, setImage }) => {
           py={7}
           fontSize={'1.2rem'}
           bg={'white'}
-          type="email"
-          name="email"
-          value={details.email}
+          type="text"
+          name="description"
+          value={details.description}
           onChange={handleChange}
-          placeholder={'Email'}
+          placeholder={'description'}
           required
         />
-        <Input
-          focusBorderColor="none"
-          my={1}
-          p={5}
-          py={7}
-          fontSize={'1.2rem'}
-          bg={'white'}
-          type="number"
-          name="mobile"
-          value={details.mobile}
-          onChange={handleChange}
-          placeholder={'Mobile'}
-          required
-        />
+        
         <Input
           focusBorderColor="none"
           my={1}
@@ -131,10 +116,10 @@ const FormDetails = ({ yourImage, setImage }) => {
           fontSize={'1.2rem'}
           bg={'white'}
           type="text"
-          name="designation"
-          value={details.designation}
+          name="url"
+          value={details.url}
           onChange={handleChange}
-          placeholder={'Designation'}
+          placeholder={'Destination url'}
         />
         <HStack marginTop={7} justifyContent={'flex-end'}>
           <Button bg={'green.300'} type="submit" value="Submit" p={5} py={7}>
